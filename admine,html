@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="UTF-8"><title>Admin - HIRAFIYIN</title>
+<style>body{font-family:Arial;padding:30px;max-width:600px;margin:0 auto}input,textarea{width:100%;padding:10px;margin:8px 0;border:1px solid #ddd;border-radius:8px}button{background:#ffc107;border:0;padding:12px 20px;border-radius:8px;font-weight:800;cursor:pointer}.card{background:#f8f9fa;padding:15px;border-radius:10px;margin:10px 0}.info{background:#0a1a2f;color:#fff;padding:15px;border-radius:10px;margin-bottom:15px}.info b{color:#ffc107}</style>
+</head><body>
+<h1>Admin - HIRAFIYIN</h1>
+
+<div class="info">
+<b>Admin:</b> Lahcen Assoughay<br>
+<b>Email:</b> lahcenassoughay@gmail.com
+</div>
+
+<!-- HNA FIN GHADI TZID MOT DE PASSE MN BE3D B RASK -->
+
+<p>Ajouter une formation / Takwin jdid</p>
+<input id="titre" placeholder="Nom de la formation">
+<textarea id="desc" placeholder="Description"></textarea>
+<input id="prix" placeholder="Prix - ex: 500 MAD">
+<button onclick="ajouter()">Ajouter la formation</button>
+<div id="liste"></div>
+<script>
+let formations = JSON.parse(localStorage.getItem('formations')||'[]');
+function afficher(){document.getElementById('liste').innerHTML = formations.map((f,i)=>`<div class="card"><b>${f.titre}</b><p>${f.desc} - ${f.prix}</p><button onclick="supp(${i})">Supprimer</button></div>`).join('') || '<p>Aucune formation</p>'}
+function ajouter(){let t=document.getElementById('titre').value; let d=document.getElementById('desc').value; let p=document.getElementById('prix').value; if(!t) return alert('Kteb smiya'); formations.push({titre:t,desc:d,prix:p}); localStorage.setItem('formations',JSON.stringify(formations)); afficher(); alert('Tzadet!');}
+function supp(i){formations.splice(i,1); localStorage.setItem('formations',JSON.stringify(formations)); afficher();}
+afficher();
+</script>
+<p><a href="index.html">← Retour au site</a></p>
+</body></html>
